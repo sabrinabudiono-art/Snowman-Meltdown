@@ -3,10 +3,12 @@ import ascii_art
 
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
+
 def display_game_state(mistakes, secret_word, guessed_letters):
-    # Display the snowman stage for the current number of mistakes.
+    """
+    Display the snowman stage for the current number of mistakes.
+    """
     print(ascii_art.STAGES[mistakes])
-    # Build a display version of the secret word.
     display_word = ""
     for letter in secret_word:
         if letter in guessed_letters:
@@ -18,11 +20,16 @@ def display_game_state(mistakes, secret_word, guessed_letters):
 
 
 def get_random_word():
-    """Selects a random word from the list."""
+    """
+    Selects a random word from the list.
+    """
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
 def game_won(guessed_letters, secret_word):
+    """
+    returns True if the length of the guessed letter matches the secret word.
+    """
     if len(secret_word) == len(guessed_letters):
         return True
     else:
@@ -30,9 +37,13 @@ def game_won(guessed_letters, secret_word):
 
 
 def play_game():
+    """
+    starts the game loop.
+    """
     secret_word = get_random_word()
     guessed_letters = []
     mistakes = 0
+    max_mistakes = 3
 
     print("Welcome to Snowman Meltdown!")
 
@@ -50,7 +61,7 @@ def play_game():
                     break
             elif guess not in guessed_letters:
                 mistakes += 1
-                if mistakes >= 3:
+                if mistakes >= max_mistakes:
                     print(f"Game Over! The word was:{secret_word}")
                     print(ascii_art.STAGES[mistakes])
                     user_input = input("Do you want to play again?(Y/N): ")
